@@ -1,0 +1,8 @@
+[site]
+title = "Akada"
+author = "Akari202"
+base_url = "https://akada.dev"
+
+[[links]]
+slug = "didactic"
+path = "didactic/content"

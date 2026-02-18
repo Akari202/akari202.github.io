@@ -1,0 +1,3 @@
+[submodule "didactic"]
+	path = didactic
+	url = https://github.com/Akari202/didactic.git
