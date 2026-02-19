@@ -6,6 +6,10 @@
     <title>{% block title %}{{ site.title }}{% endblock %}</title>
     <link rel="stylesheet" href="/style.css?v={{ asset_hashes['/style.css'] }}">
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="/rss.xml">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <meta name="robots" content="index, follow, nosnippet, nocache, noarchive, noimageindex">
+    <meta name="description" content="{{ site.description }}">
+    <link rel="author" href="/humans.txt" />
 </head>
 <body>
     <header>

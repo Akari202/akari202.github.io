@@ -37,7 +37,7 @@ jobs:
 
       - name: Build didactic and site
         working-directory: didactic
-        run: cargo run --release -- build -d ../
+        run: cargo run --release -- build -d ../ -m
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

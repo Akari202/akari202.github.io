@@ -2,6 +2,7 @@
 title = "Akada"
 author = "Akari202"
 base_url = "https://akada.dev"
+description = "I guess I have a website now???? I have no idea what to put here."
 
 [[links]]
 slug = "didactic"
