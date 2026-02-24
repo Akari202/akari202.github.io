@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ site.title }}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
     <link rel="stylesheet" href="/style.css?v={{ asset_hashes['/style.css'] }}">
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="/rss.xml">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -12,6 +13,7 @@
     <link rel="author" href="/humans.txt" />
 </head>
 <body>
+    <div class="inner-body">
     <header>
         <nav>
             {% for item in menu %}
@@ -43,6 +45,7 @@
         <span>By {{ site.author }}</span>
     </small>
 </footer>
+    </div>
 </body>
 </html>
 

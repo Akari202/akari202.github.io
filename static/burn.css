@@ -1,0 +1,10 @@
+body {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/3/30/The_Great_Fire_at_Ryogoku_Bridge%2C_Viewed_from_Asakusa_Bridge_on_the_26th_of_January%2C_1881_LACMA_M.71.100.50.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.inner-body {
+  padding: 1rem;
+  background-color: rgba(253, 253, 253, 0.93);
+}
