@@ -87,7 +87,7 @@
         let changed = false;
         checkboxes.forEach((i) => {
           const index = i.dataset.index;
-          if (i.checked && !allWishes[index].claimed) {
+          if (i.checked && allWishes[index].claimed === flase) {
             allWishes[index].claimed = true;
             changed = true;
           }
