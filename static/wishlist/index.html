@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wishlist</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="robots" content="index, follow, nosnippet, nocache, noarchive, noimageindex" />
+    <link rel="author" href="/humans.txt" />
+  </head>
+
+  <body>
+    <div class="card">
+      <h1>Wishlist</h1>
+
+      <div id="wishlist-container">Loading items...</div>
+
+      <button id="commit-button">Mark Selected as Done</button>
+      <div id="status"></div>
+    </div>
+
+    <script type="module">
+      import { parse, stringify } from "https://cdn.jsdelivr.net/npm/smol-toml@1.6.1/+esm";
+      const GIST_ID = "3ec970d9c42fffe562bdec1f828d953e";
+      const FILENAME = "wishlist.toml";
+      const NETLIFY_ENDPOINT = "https://timely-tanuki-ee638d.netlify.app";
+
+      const container = document.getElementById("wishlist-container");
+      const commitButton = document.getElementById("commit-button");
+      const statusDiv = document.getElementById("status");
+      let allWishes = [];
+
+      async function loadWishes() {
+        try {
+          const res = await fetch("https://api.github.com/gists/" + GIST_ID);
+          if (!res.ok) throw new Error("Could not fetch Gist.");
+          const data = await res.json();
+          const content = data.files[FILENAME].content;
+
+          allWishes = parse(content)["wish"];
+          renderList();
+        } catch (err) {
+          container.innerText = "Error loading wishlist.";
+          console.error(err);
+        }
+      }
+
+      function renderList() {
+        container.innerHTML = "";
+        if (allWishes.length === 0) {
+          container.innerHTML = "Wishlist is currently empty.";
+          commitButton.style.display = "none";
+          return;
+        }
+
+        allWishes.forEach((wish, index) => {
+          const label = document.createElement("label");
+          label.className = "wish-item";
+          const isClaimed = wish["claimed"] === true;
+          const itemColor = isClaimed ? "grey" : "inherit";
+          const isDisabled = isClaimed ? "disabled checked" : "";
+
+          const noteHtml = wish["note"]
+            ? `<div class="wish-note" style="font-size: 0.85em; margin-left: 50px;">${wish["note"]}</div>`
+            : "";
+
+          label.innerHTML = `
+      <div style="color: ${itemColor}">
+        <input type="checkbox" class="wish-check" data-index="${index}" ${isDisabled}>
+        <span>${wish["name"]}</span>
+        ${noteHtml}
+      </div>`;
+
+          container.appendChild(label);
+        });
+      }
+
+      commitButton.onclick = async () => {
+        const checkboxes = document.querySelectorAll(".wish-check");
+
+        let changed = false;
+        checkboxes.forEach((i) => {
+          const index = i.dataset.index;
+          if (i.checked && !allWishes[index].claimed) {
+            allWishes[index].claimed = true;
+            changed = true;
+          }
+        });
+
+        if (!changed) {
+          statusDiv.innerText = "Please select at least one item.";
+          return;
+        }
+
+        if (!confirm("Checking off items cannot be undone.")) {
+          return;
+        }
+        commitButton.disabled = true;
+        commitButton.innerText = "Updating...";
+
+        statusDiv.innerText = "Connecting to Netlify...";
+        try {
+          const response = await fetch(NETLIFY_ENDPOINT + "/.netlify/functions/updateGist", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              filename: "wishlist.toml",
+              gistId: GIST_ID,
+              content: stringify({ wish: allWishes }),
+            }),
+          });
+          if (response.ok) {
+            statusDiv.innerText = "Success! List updated.";
+            renderList();
+          } else {
+            throw new Error("Update failed");
+          }
+        } catch (err) {
+          statusDiv.innerText = "Could not update list.";
+          console.error(err);
+        } finally {
+          commitButton.disabled = false;
+          commitButton.innerText = "Mark Selected as Done";
+        }
+      };
+
+      loadWishes();
+    </script>
+  </body>
+</html>
