@@ -43,7 +43,7 @@ jobs:
           workspaces: didactic -> didactic/Cargo.lock
 
       - name: Build didactic
-        if: steps.cache-didactic.outputs.cache-hit != "true"
+        if: steps.cache-didactic.outputs.cache-hit != 'true'
         working-directory: didactic
         run: cargo build --release
 
