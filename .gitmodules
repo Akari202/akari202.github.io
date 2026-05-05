@@ -1,3 +1,6 @@
 [submodule "didactic"]
 	path = didactic
 	url = https://github.com/Akari202/didactic.git
+[submodule "templates/packages/Latex-Macros"]
+	path = templates/packages/local/akari-macros/0.1.0
+	url = https://github.com/Akari202/Latex-Macros.git
