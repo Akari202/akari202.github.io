@@ -33,6 +33,10 @@ hr {
   border-top: $border-style;
 }
 
+dt {
+  font-weight: bold;
+}
+
 a {
   color: $link-color;
   text-decoration: none;
