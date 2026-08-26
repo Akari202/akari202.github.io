@@ -5,6 +5,7 @@ STATIC_DIR=static
 CONTENT_DIR=content
 
 TREE_FILE=tree
+CLEANUP_FILES=("$TREE_FILE")
 
 fetch_and_patch() {
     local fetch_url="$1"
@@ -14,9 +15,18 @@ fetch_and_patch() {
     mkdir -p "$(dirname "$target_file")"
     curl -sSL "$fetch_url" -o "$target_file"
     git apply "$patch_file"
+
+    # CLEANUP_FILES+=("$target_file")
 }
 
-find "$STATIC_DIR" -type f -name "*.scss" | while read -r scss_file; do
+cleanup() {
+    rm -f "${CLEANUP_FILES[@]}"
+    tree -a -C -I '.git|.DS_Store|packages'
+}
+
+trap cleanup EXIT
+
+while read -r scss_file; do
     if [[ $(basename "$scss_file") == _* ]]; then
         continue
     fi
@@ -27,7 +37,8 @@ find "$STATIC_DIR" -type f -name "*.scss" | while read -r scss_file; do
 
     mkdir -p "$target_dir"
     grass "$scss_file" "$css_file"
-done
+    CLEANUP_FILES+=("$css_file")
+done < <(find "$STATIC_DIR" -type f -name "*.scss")
 
 mkdir -p $DIST_DIR
 rm -rf -- "${DIST_DIR:?}"/*
@@ -39,7 +50,3 @@ find "${CONTENT_DIR:?}" -type f ! -name "$CONTENT_DIR/index.typ" >$TREE_FILE
 
 # typst watch --no-serve --features bundle,html --format bundle --root ./ --package-path packages --input compile-host=didactic didactic/didactic.typ $DIST_DIR
 typst compile --features bundle,html --format bundle --root ./ --package-path packages --input compile-host=didactic didactic/didactic.typ $DIST_DIR
-
-rm $TREE_FILE
-
-tree -a -C -I '.git|.DS_Store|packages'
