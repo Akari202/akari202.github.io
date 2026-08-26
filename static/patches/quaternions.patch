@@ -1,0 +1,18 @@
+diff --git a/content/notes/quaternions.typ b/content/notes/quaternions.typ
+index d2b89ba..562af73 100644
+--- a/content/notes/quaternions.typ
++++ b/content/notes/quaternions.typ
+@@ -1,4 +1,4 @@
+-#import "Latex-Macros/lib.typ": *
++#import "@local/akari-macros:0.1.0": *
+ #show: setup.with(
+   title: "Quaternion Algrebra",
+   bib: true,
+@@ -6,6 +6,7 @@
+   description: "Notes on quaternion algebra",
+   show-title: true,
+   numbering: (equation: true, section: true),
++  date: datetime(year: 2026, month: 4, day: 27),
+ )
+ 
+ #let ab(body) = {

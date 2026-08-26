@@ -1,0 +1,18 @@
+/* TEAM */
+Developer: Akari202
+GitHub: https://github.com/Akari202
+
+/* SITE */
+Built with: Didactic (https://github.com/Akari202/didactic)
+Language: Rust
+Content: Typst
+Styling: SCSS
+
+/* THANKS */
+Typst: https://typst.app
+Tera: https://keats.github.io/tera/
+typst-as-lib: https://github.com/tfachmann/typst-as-lib
+
+/* STANDARDS */
+Robots: /robots.txt
+RSS: /rss.xml

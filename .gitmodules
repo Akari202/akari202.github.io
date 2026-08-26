@@ -1,0 +1,3 @@
+[submodule "packages/local/akari-macros/0.1.0"]
+	path = packages/local/akari-macros/0.1.0
+	url = git@github.com:Akari202/Latex-Macros.git
