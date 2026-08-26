@@ -51,6 +51,9 @@
 
           if index-path in tree-data {
             let title = extract-title(index-path, dir-name)
+            if title == "Wishlist" {
+                continue
+            }
             level-dict.insert(title, index-path.replace(regex("^content\/"), "").replace(regex("\.typ$"), "").replace("/", "-"))
           }
         }

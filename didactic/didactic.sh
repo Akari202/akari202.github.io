@@ -21,7 +21,7 @@ fetch_and_patch() {
 
 cleanup() {
     rm -f "${CLEANUP_FILES[@]}"
-    tree -a -C -I '.git|.DS_Store|packages'
+    tree -a -C -I '.git|.DS_Store|packages' "$DIST_DIR"
 }
 
 trap cleanup EXIT
