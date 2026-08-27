@@ -48,5 +48,8 @@ fetch_and_patch "https://raw.githubusercontent.com/Akari202/vec-utils/refs/heads
 
 find "${CONTENT_DIR:?}" -type f ! -name "$CONTENT_DIR/index.typ" >$TREE_FILE
 
-# typst watch --no-serve --features bundle,html --format bundle --root ./ --package-path packages --input compile-host=didactic didactic/didactic.typ $DIST_DIR
-typst compile --features bundle,html --format bundle --root ./ --package-path packages --input compile-host=didactic didactic/didactic.typ $DIST_DIR
+if [ "$1" = "watch" ]; then
+    typst watch --no-serve --features bundle,html --format bundle --root ./ --package-path packages --input compile-host=didactic didactic/didactic.typ $DIST_DIR
+else
+    typst compile --features bundle,html --format bundle --root ./ --package-path packages --input compile-host=didactic didactic/didactic.typ $DIST_DIR
+fi
