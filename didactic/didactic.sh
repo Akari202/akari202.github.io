@@ -14,7 +14,7 @@ fetch_and_patch() {
 
     mkdir -p "$(dirname "$target_file")"
     curl -sSL "$fetch_url" -o "$target_file"
-    git apply "$patch_file"
+    git apply -v --ignore-whitespace "$patch_file"
 
     # CLEANUP_FILES+=("$target_file")
 }

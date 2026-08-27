@@ -28,9 +28,7 @@ jobs:
           submodules: 'recursive'
 
       - name: Install typst
-        uses: taiki-e/cache-cargo-install-action@v3
-        with:
-          tool: typst-cli
+        uses: typst-community/setup-typst@v5
 
       - name: Install grass
         uses: taiki-e/cache-cargo-install-action@v3
