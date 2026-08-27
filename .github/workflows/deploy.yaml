@@ -27,10 +27,15 @@ jobs:
         with:
           submodules: 'recursive'
 
-      - name: Install binaries
+      - name: Install typst
         uses: taiki-e/cache-cargo-install-action@v3
         with:
-          tool: typst-cli, grass
+          tool: typst-cli
+
+      - name: Install grass
+        uses: taiki-e/cache-cargo-install-action@v3
+        with:
+          tool: grass
 
       - name: Build project
         run: ./didactic/didactic.sh
