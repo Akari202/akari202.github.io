@@ -4,17 +4,19 @@
 )
 
 #html.div(class: "card")[
-= Wishlist
-#html.div(id: "wishlist-container")[
-Loading items...
-]
-#html.button(id: "commit-button")[
-Mark Selected as Done
-]
-#html.div(id: "status")[]
+  = Wishlist
+  #html.div(id: "wishlist-container")[
+    Loading items...
+  ]
+  #html.button(id: "commit-button")[
+    Mark Selected as Done
+  ]
+  #html.div(id: "status")[]
 ]
 
-#html.script(type: "module", "
+#html.script(
+  type: "module",
+  "
       import { parse, stringify } from \"https://cdn.jsdelivr.net/npm/smol-toml@1.6.1/+esm\";
       const GIST_ID = \"3ec970d9c42fffe562bdec1f828d953e\";
       const FILENAME = \"wishlist.toml\";
@@ -120,4 +122,5 @@ Mark Selected as Done
       };
 
       loadWishes();
-")
+",
+)
