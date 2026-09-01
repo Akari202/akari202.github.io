@@ -16,6 +16,7 @@
 
 #let make-nav-directories(tree-data, current-file) = {
   let root-dir = "content/"
+  let nav-excluded-titles = ("Error 404", "Wishlist")
 
   let current-dir = current-file.replace(regex("[^/]+\.typ$"), "")
   let active-steps = ()
@@ -47,6 +48,9 @@
 
           let name = filename.replace(".typ", "")
           let title = extract-title(path, name)
+          if title in nav-excluded-titles {
+            continue
+          }
           level-dict.insert(
             title,
             path.replace(regex("^content\/"), "").replace(regex("\.typ$"), "").replace("/", "-"),
@@ -57,7 +61,7 @@
 
           if index-path in tree-data {
             let title = extract-title(index-path, dir-name)
-            if title == "Wishlist" {
+            if title in nav-excluded-titles {
               continue
             }
             level-dict.insert(

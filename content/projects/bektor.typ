@@ -12,6 +12,8 @@ bindings are also available for much of the library.
 - `f64` precision
 - Many matrix operations are zero copy and generic
 
+#link("https://docs.rs/bektor/latest/bektor/")[*Documentation*]
+
 == Modules
 
 - `vec3d`: 3D vector operations

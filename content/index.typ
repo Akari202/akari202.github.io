@@ -7,4 +7,7 @@
 
 hi :3
 
+== Contact
+/ Email: #link("mailto:akari@akada.dev")
+
 
