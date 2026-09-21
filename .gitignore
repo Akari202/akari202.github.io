@@ -2,3 +2,14 @@ tree
 dist/
 content/notes/quaternions.typ
 typstyle-x86_64-apple-darwin
+
+# Devenv
+.devenv*
+devenv.local.nix
+devenv.local.yaml
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml
