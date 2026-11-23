@@ -87,6 +87,13 @@
   if i.ends-with("typ") {
     let nav-tree = make-nav-directories(tree-data, i)
     [
+      // #document(
+      //   "pdf/" + output.replace(regex("typ$"), "pdf"),
+      //   format: "pdf",
+      //   author: "Akari202",
+      // )[
+      //   #include "../" + i
+      // ]
       #document(
         output.replace(regex("typ$"), "html"),
         format: "html",
@@ -145,7 +152,8 @@
           ]
         ]
       ]
-      #label(output.replace(regex("\.typ$"), "").replace("/", "-"))]
+      #label(output.replace(regex("\.typ$"), "").replace("/", "-"))
+    ]
   } else {
     asset(output, read("../" + i, encoding: none))
   }

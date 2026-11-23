@@ -3,6 +3,15 @@
   title: "Wishlist",
 )
 
+= My sizes
+/ Pants:
+  / Men's: 30" waist, 34" inseam
+  / Women's: size 10 tall generally
+/ Shirt:
+  / Men's: medium generally
+  / Women's: large generally
+/ Shoes: men's 11.5 US
+
 #html.div(class: "card")[
   = Wishlist
   #html.div(id: "wishlist-container")[

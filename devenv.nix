@@ -29,7 +29,8 @@
 
   processes = {
     serve = {
-      exec = "./didactic/didactic.sh watch";
+      ports.http.allocate = 8000;
+      exec = "./didactic/didactic.sh watch ${toString config.processes.serve.ports.http.value}";
     };
   };
 }

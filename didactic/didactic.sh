@@ -4,6 +4,7 @@ DIST_DIR=dist
 STATIC_DIR=static
 CONTENT_DIR=content
 MODE="${1:-compile}"
+PORT="${2:-8000}"
 
 TREE_FILE=tree
 CLEANUP_FILES=("$TREE_FILE")
@@ -39,7 +40,7 @@ while read -r scss_file; do
     mkdir -p "$target_dir"
     grass "$scss_file" "$css_file"
     CLEANUP_FILES+=("$css_file")
-done < <(find "$STATIC_DIR" -type f -name "*.scss")
+done < <(find "$STATIC_DIR" -type f -wholename "*.scss")
 
 mkdir -p $DIST_DIR
 rm -rf -- "${DIST_DIR:?}"/*
@@ -47,11 +48,12 @@ rm -f $TREE_FILE
 
 fetch_and_patch "https://raw.githubusercontent.com/Akari202/vec-utils/refs/heads/main/docs/quaternions.typ" "$CONTENT_DIR/notes/quaternions.typ" "$STATIC_DIR/patches/quaternions.patch"
 
+# find "${CONTENT_DIR:?}" -type f ! -wholename "$CONTENT_DIR/index.typ" >$TREE_FILE
 find "${CONTENT_DIR:?}" -type f ! -name "$CONTENT_DIR/index.typ" >$TREE_FILE
 
 if [ "$MODE" = "watch" ]; then
-    open "http://localhost:8000"
-    typst watch --port 8000 --features bundle,html --format bundle --root ./ --package-path packages --input "compile-host=didactic" --input "now=$(date '+%Y %m %d %H %M %S')" didactic/didactic.typ $DIST_DIR
+    open "http://localhost:$PORT"
+    typst watch --port "$PORT" --features bundle,html --format bundle --root ./ --package-path packages --input "compile-host=didactic" --input "now=$(date '+%Y %m %d %H %M %S')" didactic/didactic.typ $DIST_DIR
 else
     typst compile --features bundle,html --format bundle --root ./ --package-path packages --input "compile-host=didactic" --input "now=$(date '+%Y %m %d %H %M %S')" didactic/didactic.typ $DIST_DIR
 fi
